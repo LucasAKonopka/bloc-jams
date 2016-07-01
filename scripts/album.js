@@ -30,6 +30,21 @@
      ]
  };
 
+//Third album example
+var albumLucas = {
+    title: "Yo",
+    artist: "Captain Falcon",
+    label: "N64",
+    albumArtUrl: 'https://pbs.twimg.com/profile_images/2186972673/super_mario.jpg',
+    year: '1996',
+    songs: [
+        { title: "Ha", duration: '1:00'},
+        { title: "Woo-Hoo", duration: '1:00'},
+        { title: "Yippee", duration: '1:00'},
+        { title: "It's Me", duration: '1:00'}
+    ] 
+}
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template = 
       ' <tr class="album-view-song-item">'
@@ -58,10 +73,36 @@ var setCurrentAlbum = function(album) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
         console.log(album.songs[i].title) ;
     }
+    
+    
+}
+var currentAlbum = albumPicasso;
+
+var nextAlbum = function() {
+    switch (currentAlbum) {
+        case albumMarconi:
+            currentAlbum = albumLucas;
+            break;
+        case albumLucas:
+            currentAlbum = albumPicasso;
+            break;
+        case albumPicasso:
+            currentAlbum = albumMarconi;
+            break;
+    }
+    console.log(currentAlbum);
+    return currentAlbum;
 }
 
-
-
 window.onload = function() {
-  setCurrentAlbum(albumPicasso);  
+    setCurrentAlbum(albumPicasso);
+    
+    var albumCover = document.getElementsByClassName("album-cover-art")[0];
+    albumCover.addEventListener('click', function(){
+        setCurrentAlbum(nextAlbum());
+    })
+    
+
+    
+    
 };
